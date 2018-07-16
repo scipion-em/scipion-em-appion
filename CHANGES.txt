@@ -1,0 +1,3 @@
+12-July-2018 - First plugin version
+Added a log that were missing
+Picking wizard: refactored to decouple diameter from boxsize.
