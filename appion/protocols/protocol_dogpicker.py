@@ -37,7 +37,7 @@ from pyworkflow.em.convert import ImageHandler
 import pyworkflow.utils as pwutils
 from pyworkflow.utils.properties import Message
 
-from ..convert import readSetOfCoordinates
+from appion.convert import readSetOfCoordinates
 
 
 class DogPickerProtPicking(ProtParticlePickingAuto):

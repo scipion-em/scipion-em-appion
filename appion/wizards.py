@@ -36,7 +36,7 @@ from pyworkflow.em import CoordinatesObjectView
 from pyworkflow.utils import makePath, cleanPath, readProperties
 
 from protocols.protocol_dogpicker import DogPickerProtPicking
-from constants import DOGPICKER_HOME
+from appion.constants import DOGPICKER_HOME
 
 
 #===============================================================================
