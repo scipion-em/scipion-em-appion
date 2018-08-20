@@ -1,8 +1,9 @@
 # **************************************************************************
 # *
 # * Authors:     Laura del Cano (ldelcano@cnb.csic.es)
+# *              Yunior C. Fonseca Reyna (cfonseca@cnb.csic.es) [1]
 # *
-# * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
+# * [1] Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -25,26 +26,8 @@
 # **************************************************************************
 
 
+DOGPICKER_HOME = "DOGPICKER_HOME"
 
-from pyworkflow.em.packages.appion.convert import readCoordinates
+# Supported versions:
 
-from os.path import  exists
-from pyworkflow.em.data import Coordinate
-from pyworkflow.em.metadata import MetaData, MDL_XCOOR, MDL_YCOOR
-
-class DogpickerImport():
-
-    def __init__(self, protocol):
-        self.protocol = protocol
-
-    def importCoordinates(self, fileName, addCoordinate):
-        print "In importCoordinates Appion with filename=%s" % fileName
-        if exists(fileName):
-            md = MetaData()
-            md.readPlain(fileName, 'xcoor ycoor')
-            for objId in md:
-                x = md.getValue(MDL_XCOOR, objId)
-                y = md.getValue(MDL_YCOOR, objId)
-                coord = Coordinate()
-                coord.setPosition(x, y)
-                addCoordinate(coord)
+V0_2_1 = '0.2.1'
