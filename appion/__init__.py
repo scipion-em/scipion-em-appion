@@ -51,26 +51,22 @@ class Plugin(pyworkflow.em.Plugin):
     def getEnviron(cls):
         """ Setup the environment variables needed to launch Appion. """
         environ = Environ(os.environ)
-        print("getEnvirion(): %s"%os.environ.get(DOGPICKER_HOME))
-        if ('%s' % Plugin._homeVar) in environ:
-            environ.update({
-                'PATH': os.environ[Plugin._homeVar],
-                'LD_LIBRARY_PATH': str.join(os.environ[Plugin._homeVar], 'appionlib')
-                                   + ":" + os.environ[Plugin._homeVar],
-            }, position=Environ.BEGIN)
-        else:
-            # TODO: Find a generic way to warn of this situation
-            print "%s variable not set on environment." % Plugin._homeVar
+
+        environ.update({
+            'PATH': Plugin.getHome(),
+            'LD_LIBRARY_PATH': str.join(cls.getHome(), 'appionlib')
+                               + ":" + cls.getHome(),
+        }, position=Environ.BEGIN)
+
         return environ
 
     @classmethod
     def validateInstallation(cls):
         """ This function will be used to check if DogPicker is
             properly installed. """
-        _environ = Environ(os.environ)
-        missingPaths = ["%s: %s" % (var, _environ[var])
-                        for var in [Plugin._homeVar]
-                        if not os.path.exists(_environ[var])]
+
+        missingPaths = ["%s: %s" % (cls._homeVar, cls.getHome())] \
+            if not os.path.exists(cls.getHome()) else []
 
         if missingPaths:
             return ["Missing variables:"] + missingPaths
@@ -80,6 +76,14 @@ class Plugin(pyworkflow.em.Plugin):
     @classmethod
     def isVersionActive(cls):
         return cls.getActiveVersion().startswith(V0_2_1)
+
+    @classmethod
+    def defineBinaries(cls, env):
+
+        # Add dogpicker
+        env.addPackage('dogpicker', version='0.2.1',
+                       tar='dogpicker-0.2.1.tgz',
+                       default=True)
 
 
 pyworkflow.em.Domain.registerPlugin(__name__)

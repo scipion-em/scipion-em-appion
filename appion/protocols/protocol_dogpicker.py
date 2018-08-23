@@ -87,6 +87,10 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
             inputMic = os.path.join(micDir, os.path.basename(micName))
             pwutils.createLink(micName, inputMic)
 
+        # Prepare environment
+        from appion import Plugin
+        Plugin.getEnviron()
+
         # Program to execute and it arguments
         program = "ApDogPicker.py"
         outputFile = self._getExtraPath(pwutils.replaceBaseExt(inputMic, "txt"))
