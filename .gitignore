@@ -1,4 +1,9 @@
-.idea
+#### Python
 *.pyc
-dist/
-*.egg-info
+
+#### Eclipse and so on
+.project
+.cproject
+.pydevproject
+.classpath
+.idea

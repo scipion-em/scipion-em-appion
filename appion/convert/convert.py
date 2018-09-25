@@ -1,6 +1,8 @@
 # **************************************************************************
 # *
-# * Authors:     Laura del Cano (ldelcano@cnb.csic.es)
+# * Authors:  Laura del Cano (ldelcano@cnb.csic.es)
+# *           Yunior C. Fonseca Reyna (cfonseca@cnb.csic.es)
+# *
 # *
 # * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
 # *
@@ -29,28 +31,9 @@ This module contains converter functions that will serve to:
 2. Read from Appion files to base classes
 """
 
-import os
 from pyworkflow.em import Coordinate
 from pyworkflow.em.metadata import MetaData, MDL_XCOOR, MDL_YCOOR
-from pyworkflow.utils import Environ
 from pyworkflow.utils.path import replaceBaseExt, join, exists
-
-DOGPICKER_HOME = 'DOGPICKER_HOME'
-
-
-def getEnviron():
-    """ Setup the environment variables needed to launch Appion. """
-    environ = Environ(os.environ)
-    if ('%s' % DOGPICKER_HOME) in environ:
-        environ.update({
-                'PATH': os.environ[DOGPICKER_HOME],
-                'LD_LIBRARY_PATH': join(os.environ[DOGPICKER_HOME], 'appionlib') + ":" + os.environ[
-                    DOGPICKER_HOME],
-                }, position=Environ.BEGIN)
-    else:
-        #TODO: Find a generic way to warn of this situation
-        print "%s variable not set on environment." % DOGPICKER_HOME
-    return environ
 
 
 def readSetOfCoordinates(workDir, micSet, coordSet):

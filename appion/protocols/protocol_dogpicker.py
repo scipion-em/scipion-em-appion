@@ -3,6 +3,7 @@
 # *
 # * Authors:     Laura del Cano (ldelcano@cnb.csic.es) [1]
 # *              J.M. De la Rosa Trevin (delarosatrevin@scilifelab.se) [2]
+# *              Yunior C. Fonseca Reyna (cfonseca@cnb.csic.es) [1]
 # *
 # * [1] BCU, Centro Nacional de Biotecnologia, CSIC
 # * [2] SciLifeLab, Stockholm University
@@ -36,8 +37,7 @@ from pyworkflow.em.convert import ImageHandler
 import pyworkflow.utils as pwutils
 from pyworkflow.utils.properties import Message
 
-from convert import readSetOfCoordinates
-
+from appion.convert import readSetOfCoordinates
 
 
 class DogPickerProtPicking(ProtParticlePickingAuto):
@@ -86,6 +86,10 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
         else:
             inputMic = os.path.join(micDir, os.path.basename(micName))
             pwutils.createLink(micName, inputMic)
+
+        # Prepare environment
+        from appion import Plugin
+        Plugin.getEnviron()
 
         # Program to execute and it arguments
         program = "ApDogPicker.py"

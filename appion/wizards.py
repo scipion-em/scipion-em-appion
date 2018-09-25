@@ -35,7 +35,9 @@ from pyworkflow.em.wizard import EmWizard
 from pyworkflow.em import CoordinatesObjectView
 from pyworkflow.utils import makePath, cleanPath, readProperties
 
-from protocol_dogpicker import DogPickerProtPicking
+from appion.protocols import DogPickerProtPicking
+from appion.constants import DOGPICKER_HOME
+from appion import Plugin
 
 
 #===============================================================================
@@ -64,7 +66,7 @@ class DogPickerWizard(EmWizard):
         f = open(dogpickerProps, "w")
 
         args = {
-          "dogpicker" : os.path.join(os.environ['DOGPICKER_HOME'], "ApDogPicker.py"),
+          "dogpicker" : os.path.join(Plugin.getHome(), "ApDogPicker.py"),
           "convert" : pw.join('apps', 'pw_convert.py'),
           'coordsDir': coordsDir,
           'micsSqlite': micSet.getFileName(),

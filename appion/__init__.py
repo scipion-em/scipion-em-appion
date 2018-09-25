@@ -1,8 +1,9 @@
 # **************************************************************************
 # *
-# * Authors:     Laura del Cano (ldelcano@cnb.csic.es)
+# * Authors:  Laura del Cano (ldelcano@cnb.csic.es)
+# *           Yunior C. Fonseca Reyna (cfonseca@cnb.csic.es) [1]
 # *
-# * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
+# * [1] Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -27,26 +28,67 @@
 This package contains the protocols and data for APPION
 """
 import os
+import pyworkflow.em
 
-from plugin import _plugin
-
-from convert import getEnviron, DOGPICKER_HOME
-from protocol_dogpicker import DogPickerProtPicking
-from wizard import DogPickerWizard
+from pyworkflow.utils import Environ
+from .constants import DOGPICKER_HOME, V0_2_1
 
 
-#_references = ['Voss2009']
+_references = ['Voss2009']
+_logo = 'appion_logo.png'
 
-_environ = getEnviron()
+
+class Plugin(pyworkflow.em.Plugin):
+    _homeVar = DOGPICKER_HOME
+    _pathVars = [DOGPICKER_HOME]
+    _supportedVersions = V0_2_1
+
+    @classmethod
+    def _defineVariables(cls):
+        cls._defineEmVar(DOGPICKER_HOME, 'dogpicker-0.2.1')
+
+    @classmethod
+    def getEnviron(cls):
+        """ Setup the environment variables needed to launch Appion. """
+        environ = Environ(os.environ)
+
+        environ.update({
+            'PATH': Plugin.getHome(),
+            'LD_LIBRARY_PATH': str.join(cls.getHome(), 'appionlib')
+                               + ":" + cls.getHome(),
+        }, position=Environ.BEGIN)
+
+        return environ
+
+    @classmethod
+    def validateInstallation(cls):
+        """ This function will be used to check if DogPicker is
+            properly installed. """
+
+        missingPaths = ["%s: %s" % (cls._homeVar, cls.getHome())] \
+            if not os.path.exists(cls.getHome()) else []
+
+        if missingPaths:
+            return ["Missing variables:"] + missingPaths
+        else:
+            return []  # No errors
+
+    @classmethod
+    def isVersionActive(cls):
+        return cls.getActiveVersion().startswith(V0_2_1)
+
+    @classmethod
+    def defineBinaries(cls, env):
+
+        # Add dogpicker
+        env.addPackage('dogpicker', version='0.2.1',
+                       tar='dogpicker-0.2.1.tgz',
+                       default=True)
 
 
-def validateInstallation():
-    """ This function will be used to check if RELION is properly installed. """
-    missingPaths = ["%s: %s" % (var, _environ[var])
-                    for var in [DOGPICKER_HOME]
-                    if not os.path.exists(_environ[var])]
+pyworkflow.em.Domain.registerPlugin(__name__)
 
-    if missingPaths:
-        return ["Missing variables:"] + missingPaths
-    else:
-        return [] # No errors
+
+
+
+
