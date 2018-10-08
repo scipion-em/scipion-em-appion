@@ -40,7 +40,7 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.0a1',  # Required
+    version='1.0.0a2',  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
@@ -61,7 +61,7 @@ setup(
     #
     # This field corresponds to the "Home-Page" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
-    url='https://github.com/scipion-emscipion-em-appion',  # Optional
+    url='https://github.com/scipion-em/scipion-em-appion',  # Optional
 
     # This should be your name or the name of the organization which owns the
     # project.
