@@ -61,19 +61,6 @@ class Plugin(pyworkflow.em.Plugin):
         return environ
 
     @classmethod
-    def validateInstallation(cls):
-        """ This function will be used to check if DogPicker is
-            properly installed. """
-
-        missingPaths = ["%s: %s" % (cls._homeVar, cls.getHome())] \
-            if not os.path.exists(cls.getHome()) else []
-
-        if missingPaths:
-            return ["Missing variables:"] + missingPaths
-        else:
-            return []  # No errors
-
-    @classmethod
     def isVersionActive(cls):
         return cls.getActiveVersion().startswith(V0_2_1)
 
