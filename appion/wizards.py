@@ -32,11 +32,10 @@ import os
 
 import pyworkflow as pw
 from pyworkflow.em.wizard import EmWizard
-from pyworkflow.em import CoordinatesObjectView
+from pyworkflow.em.viewers import CoordinatesObjectView
 from pyworkflow.utils import makePath, cleanPath, readProperties
 
 from appion.protocols import DogPickerProtPicking
-from appion.constants import DOGPICKER_HOME
 from appion import Plugin
 
 
