@@ -31,7 +31,7 @@ This module contains converter functions that will serve to:
 2. Read from Appion files to base classes
 """
 
-from pyworkflow.em import Coordinate
+from pyworkflow.em.data import Coordinate
 from pyworkflow.em.metadata import MetaData, MDL_XCOOR, MDL_YCOOR
 from pyworkflow.utils.path import replaceBaseExt, join, exists
 
