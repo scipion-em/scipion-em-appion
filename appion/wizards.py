@@ -82,7 +82,7 @@ class DogPickerWizard(EmWizard):
         diameterA.help = Sampling rate is %(apix)s
         threshold.value =  %(threshold)s
         threshold.label = Threshold
-        threshold.help = some help
+        threshold.help = Threshold in standard deviations above the mean
         autopickCommand = %(dogpicker)s  --thresh=%%(threshold) --diam=%%(diameterA) --apix=%(apix)s  --image=%%(micrograph) --outfile=%(coordsDir)s/%%(micrographName).txt 
         convertCommand = %(convert)s --coordinates --from dogpicker --to xmipp --input  %(micsSqlite)s --output %(coordsDir)s
         """ % args)
