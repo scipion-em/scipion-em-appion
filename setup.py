@@ -22,7 +22,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='scipion-em-appion',  # Required
-    version='1.0.1b0',  # Required
+    version='1.0.1',  # Required
     description='Appion dogpicker ready to use in scipion.',  # Required
     long_description=long_description,  # Optional
     url='https://github.com/scipion-em/scipion-em-appion',  # Optional
@@ -31,6 +31,6 @@ setup(
     keywords='scipion cryoem imageprocessing scipion-2.0',  # Optional
     packages=find_packages(),
     package_data={  # Optional
-       'appion': ['appion_logo.png'],
+       'appion': ['appion_logo.png', 'protocols.conf'],
     }
 )
