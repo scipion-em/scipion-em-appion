@@ -68,7 +68,8 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
                       expertLevel=params.LEVEL_ADVANCED,
                       label='Additional parameters',
                       help='Additional parameters for dogpicker: \n  '
-                           '--numberSizes, --sizeRange, --threshold,...')
+                           '--num-slices=, --size-range=, --max-thresh=, --max-area='
+                           '--max-peaks=')
 
     #--------------------------- STEPS functions -------------------------------
     def _pickMicrograph(self, mic, args):
@@ -160,4 +161,3 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
     
     def getCoordsDir(self):
         return self._getExtraPath()
- 
