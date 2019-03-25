@@ -31,7 +31,7 @@ import os
 import pyworkflow.em
 
 from pyworkflow.utils import Environ
-from .constants import DOGPICKER_HOME, V0_2_1
+from .constants import DOGPICKER_HOME, V0_2_1_1
 
 
 _references = ['Voss2009']
@@ -41,11 +41,11 @@ _logo = 'appion_logo.png'
 class Plugin(pyworkflow.em.Plugin):
     _homeVar = DOGPICKER_HOME
     _pathVars = [DOGPICKER_HOME]
-    _supportedVersions = V0_2_1
+    _supportedVersions = V0_2_1_1
 
     @classmethod
     def _defineVariables(cls):
-        cls._defineEmVar(DOGPICKER_HOME, 'dogpicker-0.2.1')
+        cls._defineEmVar(DOGPICKER_HOME, 'dogpicker-0.2.1.1')
 
     @classmethod
     def getEnviron(cls):
@@ -62,14 +62,14 @@ class Plugin(pyworkflow.em.Plugin):
 
     @classmethod
     def isVersionActive(cls):
-        return cls.getActiveVersion().startswith(V0_2_1)
+        return cls.getActiveVersion().startswith(V0_2_1_1)
 
     @classmethod
     def defineBinaries(cls, env):
 
         # Add dogpicker
-        env.addPackage('dogpicker', version='0.2.1',
-                       tar='dogpicker-0.2.1.tgz',
+        env.addPackage('dogpicker', version='0.2.1.1',
+                       tar='dogpicker-0.2.1.1.tgz',
                        default=True)
 
 

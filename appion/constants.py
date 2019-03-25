@@ -30,4 +30,6 @@ DOGPICKER_HOME = "DOGPICKER_HOME"
 
 # Supported versions:
 
-V0_2_1 = '0.2.1'
+# This is the same dogpicker version but made compatible with PILLOW update
+# Image.fromstring is replaced by Image.frombytes
+V0_2_1_1 = '0.2.1.1'
