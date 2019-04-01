@@ -24,6 +24,3 @@ Alternatively, in devel mode:
 
     scipion installp -p local/path/to/scipion-em-appion --devel
 
-
-
-![build status](http://arquimedes.cnb.csic.es:9980/badges/appion_devel.svg)
