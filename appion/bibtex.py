@@ -24,10 +24,6 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-"""
-Bibtex string file for DoGPiker.
-"""
-
 
 """
 
