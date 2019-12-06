@@ -28,7 +28,7 @@
 This package contains the protocols and data for APPION
 """
 import os
-import pyworkflow.em
+import pwem
 
 from pyworkflow.utils import Environ
 from .constants import DOGPICKER_HOME, V0_2_1_1
@@ -38,7 +38,7 @@ _references = ['Voss2009']
 _logo = 'appion_logo.png'
 
 
-class Plugin(pyworkflow.em.Plugin):
+class Plugin(pwem.Plugin):
     _homeVar = DOGPICKER_HOME
     _pathVars = [DOGPICKER_HOME]
     _supportedVersions = V0_2_1_1
@@ -73,7 +73,7 @@ class Plugin(pyworkflow.em.Plugin):
                        default=True)
 
 
-pyworkflow.em.Domain.registerPlugin(__name__)
+pwem.Domain.registerPlugin(__name__)
 
 
 

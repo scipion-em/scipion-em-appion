@@ -31,9 +31,11 @@ This module contains converter functions that will serve to:
 2. Read from Appion files to base classes
 """
 
-from pyworkflow.em.data import Coordinate
-from pyworkflow.em.metadata import MetaData, MDL_XCOOR, MDL_YCOOR
-from pyworkflow.utils.path import replaceBaseExt, join, exists
+from pyworkflow.utils import replaceBaseExt, join, exists
+
+from pwem.objects import Coordinate
+import pwem.metadata as md
+
 
 
 def readSetOfCoordinates(workDir, micSet, coordSet):
@@ -53,11 +55,11 @@ def readSetOfCoordinates(workDir, micSet, coordSet):
 
 def readCoordinates(mic, fileName, coordsSet):
     if exists(fileName):
-         md = MetaData()
+         md = md.MetaData()
          md.readPlain(fileName, 'xcoor ycoor')
          for objId in md:
-            x = md.getValue(MDL_XCOOR, objId)
-            y = md.getValue(MDL_YCOOR, objId)
+            x = md.getValue(md.MDL_XCOOR, objId)
+            y = md.getValue(md.MDL_YCOOR, objId)
             coord = Coordinate()
             coord.setPosition(x, y)
             coord.setMicrograph(mic)
