@@ -30,7 +30,7 @@ setup(
     author_email='scipion@cnb.csic.es',  # Optional
     keywords='scipion cryoem imageprocessing scipion-2.0',  # Optional
     packages=find_packages(),
-    entry_points={'pyworkflow.guiplugin': 'appion = appion'},
+    entry_points={'pyworkflow.plugin': 'appion = appion'},
     package_data={  # Optional
        'appion': ['appion_logo.png', 'protocols.conf'],
     }
