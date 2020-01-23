@@ -42,7 +42,7 @@ class DogpickerImport():
         if exists(fileName):
             mdata = md.MetaData()
             mdata.readPlain(fileName, 'xcoor ycoor')
-            for objId in md:
+            for objId in mdata:
                 x = mdata.getValue(md.MDL_XCOOR, objId)
                 y = mdata.getValue(md.MDL_YCOOR, objId)
                 coord = Coordinate()
