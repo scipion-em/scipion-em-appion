@@ -30,7 +30,7 @@
 
 from os.path import  exists
 from pwem.objects import Coordinate
-import pwem.metadata as md
+import pwem.emlib.metadata as md
 
 class DogpickerImport():
 

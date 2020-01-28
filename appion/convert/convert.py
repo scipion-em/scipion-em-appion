@@ -34,7 +34,7 @@ This module contains converter functions that will serve to:
 from pyworkflow.utils import replaceBaseExt, join, exists
 
 from pwem.objects import Coordinate
-import pwem.metadata as md
+import pwem.emlib.metadata as md
 
 
 
