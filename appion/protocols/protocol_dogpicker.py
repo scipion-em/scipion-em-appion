@@ -33,7 +33,7 @@ import os
 
 import pyworkflow.protocol.params as params
 from pwem.protocols import ProtParticlePickingAuto
-from pwem.convert import ImageHandler
+from pwem.emlib.image import ImageHandler
 import pyworkflow.utils as pwutils
 from pyworkflow.utils.properties import Message
 
