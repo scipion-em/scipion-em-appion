@@ -31,8 +31,8 @@ This module implement some wizards
 import os
 
 import pyworkflow as pw
-from pyworkflow.em.wizard import EmWizard
-from pyworkflow.em.viewers import CoordinatesObjectView
+from pwem.wizards import EmWizard
+from pwem.viewers import CoordinatesObjectView
 from pyworkflow.utils import makePath, cleanPath, readProperties
 
 from appion.protocols import DogPickerProtPicking
@@ -51,7 +51,7 @@ class DogPickerWizard(EmWizard):
         autopickProt = form.protocol
         micSet = autopickProt.getInputMicrographs()
         if not micSet:
-            print 'must specify input micrographs'
+            print('must specify input micrographs')
             return
         project = autopickProt.getProject()
         micfn = micSet.getFileName()

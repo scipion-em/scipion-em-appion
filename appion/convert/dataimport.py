@@ -29,8 +29,8 @@
 
 
 from os.path import  exists
-from pyworkflow.em.data import Coordinate
-from pyworkflow.em.metadata import MetaData, MDL_XCOOR, MDL_YCOOR
+from pwem.objects import Coordinate
+import pwem.emlib.metadata as md
 
 class DogpickerImport():
 
@@ -38,13 +38,13 @@ class DogpickerImport():
         self.protocol = protocol
 
     def importCoordinates(self, fileName, addCoordinate):
-        print "In importCoordinates Appion with filename=%s" % fileName
+        print("In importCoordinates Appion with filename=%s" % fileName)
         if exists(fileName):
-            md = MetaData()
-            md.readPlain(fileName, 'xcoor ycoor')
-            for objId in md:
-                x = md.getValue(MDL_XCOOR, objId)
-                y = md.getValue(MDL_YCOOR, objId)
+            mdata = md.MetaData()
+            mdata.readPlain(fileName, 'xcoor ycoor')
+            for objId in mdata:
+                x = mdata.getValue(md.MDL_XCOOR, objId)
+                y = mdata.getValue(md.MDL_YCOOR, objId)
                 coord = Coordinate()
                 coord.setPosition(x, y)
                 addCoordinate(coord)
