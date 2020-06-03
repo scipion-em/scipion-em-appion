@@ -93,10 +93,13 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
         Plugin.getEnviron()
 
         # Program to execute and it arguments
-        program = "ApDogPicker.py"
+        program = "python2"
         outputFile = self._getExtraPath(pwutils.replaceBaseExt(inputMic, "txt"))
 
         args += " --image=%s --outfile=%s" % (inputMic, outputFile)
+
+        dogpicker = Plugin.getHome("ApDogPicker.py")
+        args = dogpicker + " " +  args
 
         self.runJob(program, args)
     

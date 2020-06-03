@@ -34,7 +34,7 @@ This module contains converter functions that will serve to:
 from pyworkflow.utils import replaceBaseExt, join, exists
 
 from pwem.objects import Coordinate
-import pwem.emlib.metadata as md
+import pwem.emlib as emlib
 
 
 
@@ -55,11 +55,12 @@ def readSetOfCoordinates(workDir, micSet, coordSet):
 
 def readCoordinates(mic, fileName, coordsSet):
     if exists(fileName):
-         md = md.MetaData()
+
+         md = emlib.MetaData()
          md.readPlain(fileName, 'xcoor ycoor')
          for objId in md:
-            x = md.getValue(md.MDL_XCOOR, objId)
-            y = md.getValue(md.MDL_YCOOR, objId)
+            x = md.getValue(emlib.MDL_XCOOR, objId)
+            y = md.getValue(emlib.MDL_YCOOR, objId)
             coord = Coordinate()
             coord.setPosition(x, y)
             coord.setMicrograph(mic)

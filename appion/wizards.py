@@ -66,7 +66,7 @@ class DogPickerWizard(EmWizard):
 
         args = {
           "dogpicker" : os.path.join(Plugin.getHome(), "ApDogPicker.py"),
-          "convert" : pw.join('apps', 'pw_convert.py'),
+          "convert" : 'emconvert',
           'coordsDir': coordsDir,
           'micsSqlite': micSet.getFileName(),
           "diameter": autopickProt.diameter,
@@ -83,7 +83,7 @@ class DogPickerWizard(EmWizard):
         threshold.value =  %(threshold)s
         threshold.label = Threshold
         threshold.help = Threshold in standard deviations above the mean
-        autopickCommand = %(dogpicker)s  --thresh=%%(threshold) --diam=%%(diameterA) --apix=%(apix)s  --image=%%(micrograph) --outfile=%(coordsDir)s/%%(micrographName).txt 
+        autopickCommand = python2 %(dogpicker)s  --thresh=%%(threshold) --diam=%%(diameterA) --apix=%(apix)s  --image=%%(micrograph) --outfile=%(coordsDir)s/%%(micrographName).txt 
         convertCommand = %(convert)s --coordinates --from dogpicker --to xmipp --input  %(micsSqlite)s --output %(coordsDir)s
         """ % args)
         f.close()
