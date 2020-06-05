@@ -22,7 +22,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='scipion-em-appion',  # Required
-    version='3.0.1',  # Required
+    version='3.0.2',  # Required
     description='Plugin to use Appion Dogpicker within the Scipion framework',  # Required
     long_description=long_description,  # Optional
     url='https://github.com/scipion-em/scipion-em-appion',  # Optional
