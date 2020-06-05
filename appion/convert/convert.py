@@ -8,7 +8,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -37,7 +37,6 @@ from pwem.objects import Coordinate
 import pwem.emlib as emlib
 
 
-
 def readSetOfCoordinates(workDir, micSet, coordSet):
     """ Read from Appion .txt files.
     It is expected a file named: base.txt under the workDir.
@@ -56,9 +55,9 @@ def readSetOfCoordinates(workDir, micSet, coordSet):
 def readCoordinates(mic, fileName, coordsSet):
     if exists(fileName):
 
-         md = emlib.MetaData()
-         md.readPlain(fileName, 'xcoor ycoor')
-         for objId in md:
+        md = emlib.MetaData()
+        md.readPlain(fileName, 'xcoor ycoor')
+        for objId in md:
             x = md.getValue(emlib.MDL_XCOOR, objId)
             y = md.getValue(emlib.MDL_YCOOR, objId)
             coord = Coordinate()
@@ -69,4 +68,3 @@ def readCoordinates(mic, fileName, coordsSet):
 
 def writeSetOfCoordinates():
     pass
-

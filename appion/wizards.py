@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -30,7 +30,6 @@ This module implement some wizards
 
 import os
 
-import pyworkflow as pw
 from pwem.wizards import EmWizard
 from pwem.viewers import CoordinatesObjectView
 from pyworkflow.utils import makePath, cleanPath, readProperties
@@ -38,10 +37,6 @@ from pyworkflow.utils import makePath, cleanPath, readProperties
 from appion.protocols import DogPickerProtPicking
 from appion import Plugin
 
-
-#===============================================================================
-# PICKER
-#===============================================================================
 
 class DogPickerWizard(EmWizard):
     _targets = [(DogPickerProtPicking, ['diameter', 'threshold'])]
@@ -65,8 +60,8 @@ class DogPickerWizard(EmWizard):
         f = open(dogpickerProps, "w")
 
         args = {
-          "dogpicker" : os.path.join(Plugin.getHome(), "ApDogPicker.py"),
-          "convert" : 'emconvert',
+          "dogpicker": os.path.join(Plugin.getHome(), "ApDogPicker.py"),
+          "convert": 'emconvert',
           'coordsDir': coordsDir,
           'micsSqlite': micSet.getFileName(),
           "diameter": autopickProt.diameter,
@@ -98,4 +93,3 @@ class DogPickerWizard(EmWizard):
         if myprops['applyChanges'] == 'true':
             form.setVar('diameter', myprops['diameterA.value'])
             form.setVar('threshold', myprops['threshold.value'])
-
