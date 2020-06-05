@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -28,17 +28,16 @@
 This package contains the protocols and data for APPION
 """
 import os
-import pyworkflow.em
+import pwem
 
 from pyworkflow.utils import Environ
 from .constants import DOGPICKER_HOME, V0_2_1_1
-
 
 _references = ['Voss2009']
 _logo = 'appion_logo.png'
 
 
-class Plugin(pyworkflow.em.Plugin):
+class Plugin(pwem.Plugin):
     _homeVar = DOGPICKER_HOME
     _pathVars = [DOGPICKER_HOME]
     _supportedVersions = V0_2_1_1
@@ -66,16 +65,7 @@ class Plugin(pyworkflow.em.Plugin):
 
     @classmethod
     def defineBinaries(cls, env):
-
         # Add dogpicker
         env.addPackage('dogpicker', version='0.2.1.1',
                        tar='dogpicker-0.2.1.1.tgz',
                        default=True)
-
-
-pyworkflow.em.Domain.registerPlugin(__name__)
-
-
-
-
-

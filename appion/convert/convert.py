@@ -8,7 +8,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -31,9 +31,10 @@ This module contains converter functions that will serve to:
 2. Read from Appion files to base classes
 """
 
-from pyworkflow.em.data import Coordinate
-from pyworkflow.em.metadata import MetaData, MDL_XCOOR, MDL_YCOOR
-from pyworkflow.utils.path import replaceBaseExt, join, exists
+from pyworkflow.utils import replaceBaseExt, join, exists
+
+from pwem.objects import Coordinate
+import pwem.emlib as emlib
 
 
 def readSetOfCoordinates(workDir, micSet, coordSet):
@@ -53,11 +54,12 @@ def readSetOfCoordinates(workDir, micSet, coordSet):
 
 def readCoordinates(mic, fileName, coordsSet):
     if exists(fileName):
-         md = MetaData()
-         md.readPlain(fileName, 'xcoor ycoor')
-         for objId in md:
-            x = md.getValue(MDL_XCOOR, objId)
-            y = md.getValue(MDL_YCOOR, objId)
+
+        md = emlib.MetaData()
+        md.readPlain(fileName, 'xcoor ycoor')
+        for objId in md:
+            x = md.getValue(emlib.MDL_XCOOR, objId)
+            y = md.getValue(emlib.MDL_YCOOR, objId)
             coord = Coordinate()
             coord.setPosition(x, y)
             coord.setMicrograph(mic)
@@ -66,4 +68,3 @@ def readCoordinates(mic, fileName, coordsSet):
 
 def writeSetOfCoordinates():
     pass
-

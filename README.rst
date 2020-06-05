@@ -2,11 +2,11 @@
 Appion plugin
 =============
 
-This plugin allows to use Appion within the Scipion framework.
+This plugin allows to use Appion Dogpicker within the Scipion framework.
 
-=====
+-----
 Setup
-=====
+-----
 
 - **Install this plugin:**
 
@@ -24,3 +24,7 @@ Alternatively, in devel mode:
 
     scipion installp -p local/path/to/scipion-em-appion --devel
 
+Supported versions
+------------------
+
+0.2.1.1

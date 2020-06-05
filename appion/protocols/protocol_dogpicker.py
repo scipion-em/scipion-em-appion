@@ -11,7 +11,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -32,12 +32,12 @@
 import os
 
 import pyworkflow.protocol.params as params
-from pyworkflow.em.protocol import ProtParticlePickingAuto
-from pyworkflow.em.convert import ImageHandler
 import pyworkflow.utils as pwutils
 from pyworkflow.utils.properties import Message
+from pwem.protocols import ProtParticlePickingAuto
+from pwem.emlib.image import ImageHandler
 
-from appion.convert import readSetOfCoordinates
+from ..convert import readSetOfCoordinates
 
 
 class DogPickerProtPicking(ProtParticlePickingAuto):
@@ -45,25 +45,24 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
     dogpicker.
     """
     _label = 'dogpicker'
-        
+
     def __init__(self, **args):
         ProtParticlePickingAuto.__init__(self, **args)
 
-
-    #--------------------------- DEFINE param functions ------------------------
+    # --------------------------- DEFINE param functions -----------------------
     def _defineParams(self, form):
 
         ProtParticlePickingAuto._defineParams(self, form)
         form.addParam('diameter', params.IntParam, default=100,
-                   label='Diameter of particle in Å')
+                      label='Diameter of particle in Å')
         form.addParam('invert', params.BooleanParam, default=False,
                       label='Invert',
-                      help = "Invert image before picking, DoG normally picks "
-                             "white particles.")
+                      help="Invert image before picking, DoG normally picks "
+                           "white particles.")
         form.addParam('threshold', params.FloatParam, default=0.5,
                       label='Threshold',
-                      help = "Threshold in standard deviations above the mean, "
-                             "e.g. --thresh=0.7")
+                      help="Threshold in standard deviations above the mean, "
+                           "e.g. --thresh=0.7")
         form.addParam('extraParams', params.StringParam,
                       expertLevel=params.LEVEL_ADVANCED,
                       label='Additional parameters',
@@ -71,7 +70,7 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
                            '--num-slices=, --size-range=, --max-thresh=, --max-area='
                            '--max-peaks=')
 
-    #--------------------------- STEPS functions -------------------------------
+    # --------------------------- STEPS functions ------------------------------
     def _pickMicrograph(self, mic, args):
         # Prepare mic folder and convert if needed
         micName = mic.getFileName()
@@ -93,17 +92,20 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
         Plugin.getEnviron()
 
         # Program to execute and it arguments
-        program = "ApDogPicker.py"
+        program = "python2"
         outputFile = self._getExtraPath(pwutils.replaceBaseExt(inputMic, "txt"))
 
         args += " --image=%s --outfile=%s" % (inputMic, outputFile)
 
+        dogpicker = Plugin.getHome("ApDogPicker.py")
+        args = dogpicker + " " + args
+
         self.runJob(program, args)
-    
+
     def createOutputStep(self):
         pass
 
-    #--------------------------- INFO functions --------------------------------
+    # --------------------------- INFO functions -------------------------------
     def _summary(self):
         summary = []
         summary.append("Number of input micrographs: %d"
@@ -141,9 +143,8 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
 
         return methodsMsgs
 
-    #--------------------------- UTILS functions -------------------------------
+    # --------------------------- UTILS functions ------------------------------
     def _getPickArgs(self):
-
         args = "--diam=%0.3f " % self.diameter.get()
         args += "--apix=%0.3f " % self.getInputMicrographs().getSamplingRate()
         args += "--thresh=%f" % self.threshold
@@ -156,8 +157,8 @@ class DogPickerProtPicking(ProtParticlePickingAuto):
         return [args]
 
     def readCoordsFromMics(self, workingDir, micList, coordSet):
-        coordSet.setBoxSize(round(self.diameter.get()/self.getInputMicrographs().getSamplingRate()))
+        coordSet.setBoxSize(round(self.diameter.get() / self.getInputMicrographs().getSamplingRate()))
         readSetOfCoordinates(workingDir, micList, coordSet)
-    
+
     def getCoordsDir(self):
         return self._getExtraPath()

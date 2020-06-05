@@ -7,7 +7,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -30,18 +30,13 @@ This module implement some wizards
 
 import os
 
-import pyworkflow as pw
-from pyworkflow.em.wizard import EmWizard
-from pyworkflow.em.viewers import CoordinatesObjectView
+from pwem.wizards import EmWizard
+from pwem.viewers import CoordinatesObjectView
 from pyworkflow.utils import makePath, cleanPath, readProperties
 
 from appion.protocols import DogPickerProtPicking
 from appion import Plugin
 
-
-#===============================================================================
-# PICKER
-#===============================================================================
 
 class DogPickerWizard(EmWizard):
     _targets = [(DogPickerProtPicking, ['diameter', 'threshold'])]
@@ -51,7 +46,7 @@ class DogPickerWizard(EmWizard):
         autopickProt = form.protocol
         micSet = autopickProt.getInputMicrographs()
         if not micSet:
-            print 'must specify input micrographs'
+            print('must specify input micrographs')
             return
         project = autopickProt.getProject()
         micfn = micSet.getFileName()
@@ -65,8 +60,8 @@ class DogPickerWizard(EmWizard):
         f = open(dogpickerProps, "w")
 
         args = {
-          "dogpicker" : os.path.join(Plugin.getHome(), "ApDogPicker.py"),
-          "convert" : pw.join('apps', 'pw_convert.py'),
+          "dogpicker": os.path.join(Plugin.getHome(), "ApDogPicker.py"),
+          "convert": 'emconvert',
           'coordsDir': coordsDir,
           'micsSqlite': micSet.getFileName(),
           "diameter": autopickProt.diameter,
@@ -83,7 +78,7 @@ class DogPickerWizard(EmWizard):
         threshold.value =  %(threshold)s
         threshold.label = Threshold
         threshold.help = Threshold in standard deviations above the mean
-        autopickCommand = %(dogpicker)s  --thresh=%%(threshold) --diam=%%(diameterA) --apix=%(apix)s  --image=%%(micrograph) --outfile=%(coordsDir)s/%%(micrographName).txt 
+        autopickCommand = python2 %(dogpicker)s  --thresh=%%(threshold) --diam=%%(diameterA) --apix=%(apix)s  --image=%%(micrograph) --outfile=%(coordsDir)s/%%(micrographName).txt 
         convertCommand = %(convert)s --coordinates --from dogpicker --to xmipp --input  %(micsSqlite)s --output %(coordsDir)s
         """ % args)
         f.close()
@@ -98,4 +93,3 @@ class DogPickerWizard(EmWizard):
         if myprops['applyChanges'] == 'true':
             form.setVar('diameter', myprops['diameterA.value'])
             form.setVar('threshold', myprops['threshold.value'])
-
