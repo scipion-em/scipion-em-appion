@@ -29,6 +29,7 @@ This package contains the protocols and data for APPION
 """
 import os
 import pwem
+from pyworkflow import SPA
 
 from pyworkflow.utils import Environ
 from .constants import DOGPICKER_HOME, V0_2_1_1
@@ -42,6 +43,7 @@ class Plugin(pwem.Plugin):
     _homeVar = DOGPICKER_HOME
     _pathVars = [DOGPICKER_HOME]
     _supportedVersions = V0_2_1_1
+    _processingField = [SPA]
 
     @classmethod
     def _defineVariables(cls):
