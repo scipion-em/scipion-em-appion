@@ -33,7 +33,7 @@ import pwem
 from pyworkflow.utils import Environ
 from .constants import DOGPICKER_HOME, V0_2_1_1
 
-__version__ = '3.0.3'
+__version__ = '3.0.4'
 _references = ['Voss2009']
 _logo = 'appion_logo.png'
 
