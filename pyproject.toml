@@ -22,7 +22,7 @@ Issues = "https://github.com/scipion-em/scipion-em-warp/issues"
 "appion" = ["protocols.conf", "appion_logo.png"]
 
 [project.entry-points."pyworkflow.plugin"]
-warp = "appion"
+appion = "appion"
 
 [tool.setuptools.dynamic]
 version = {attr = "appion.__version__"}
