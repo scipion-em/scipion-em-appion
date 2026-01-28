@@ -26,6 +26,7 @@ warp = "appion"
 
 [tool.setuptools.dynamic]
 version = {attr = "appion.__version__"}
+dependencies = {file = ["requirements.txt"]}
 
 [tool.scipion]
 processingField = ["SPA"]
