@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scipion-em-appion"
+dynamic = ["version", "dependencies"]
+
+authors = [{name = "I2PC", email = "scipion@cnb.csic.es"}]
+description = "Plugin to use Appion Dogpicker within the Scipion framework"
+readme = "README.rst"
+requires-python = ">=3.8"
+keywords = ["scipion", "electron-microscopy", "cryo-em", "structural-biology", "image-processing", "scipion-3.0"]
+license = {text = "GNU General Public License v3 (GPLv3)"}
+
+[project.urls]
+Homepage = "https://github.com/scipion-em/scipion-em-warp"
+Repository = "https://github.com/scipion-em/scipion-em-warp"
+Issues = "https://github.com/scipion-em/scipion-em-warp/issues"
+
+[tool.setuptools.package-data]
+"appion" = ["protocols.conf", "appion_logo.png"]
+
+[project.entry-points."pyworkflow.plugin"]
+warp = "appion"
+
+[tool.setuptools.dynamic]
+version = {attr = "appion.__version__"}
+
+[tool.scipion]
+processingField = ["SPA"]

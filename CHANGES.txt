@@ -1,3 +1,4 @@
+3.1.0: Changing the setup file to toml file
 3.0.1:
     - gplv3, pep8 check, fix setup.py
 07-December-2019 - Migration to python 3
