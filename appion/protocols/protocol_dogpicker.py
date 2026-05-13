@@ -41,8 +41,170 @@ from ..convert import readSetOfCoordinates
 
 
 class DogPickerProtPicking(ProtParticlePickingAuto):
-    """ Protocol to pick particles in a set of micrographs using appion
-    dogpicker.
+    """
+    Automatically detects particle coordinates in cryo-EM micrographs using
+    the Appion DogPicker approach. The protocol is designed to identify
+    candidate particles by enhancing image features through Difference of
+    Gaussian filtering, allowing rapid particle localization in large
+    micrograph datasets.
+
+    AI Generated:
+
+    DogPicker Particle Picking (DogPickerProtPicking) - User Manual
+        Overview
+
+        The DogPicker Particle Picking protocol provides an automated method
+        for identifying particles in cryo-EM micrographs using the Appion
+        DogPicker framework. Its primary purpose is to accelerate particle
+        selection during single-particle analysis workflows by detecting
+        candidate molecular projections directly from raw or preprocessed
+        micrographs.
+
+        In practical cryo-EM processing pipelines, particle picking is one
+        of the earliest and most influential stages because the quality of
+        the selected coordinates strongly affects all downstream analyses,
+        including 2D classification, 3D reconstruction, and refinement.
+        This protocol is particularly useful for users who need a rapid and
+        relatively simple automated picking strategy that can process large
+        collections of micrographs consistently.
+
+        Biological Motivation and Use Cases
+
+        Biological cryo-EM datasets frequently contain thousands of
+        particles distributed across many micrographs. Manual selection is
+        often impractical, time-consuming, and subject to operator bias.
+        Automated picking methods such as DogPicker allow users to generate
+        reproducible particle coordinates suitable for initial processing
+        and exploratory analysis.
+
+        The protocol is commonly used during early stages of structure
+        determination when users need a first estimate of particle
+        populations. It can also serve as a preparatory step before more
+        advanced deep learning or template-based picking strategies.
+        Because the method relies primarily on local intensity features,
+        it performs best when particles display relatively strong contrast
+        against the surrounding background.
+
+        Inputs and General Workflow
+
+        The protocol requires a set of cryo-EM micrographs as input.
+        These micrographs should ideally be motion-corrected and reasonably
+        free of severe artifacts before particle detection begins. The
+        quality of the input data strongly influences the reliability of
+        the resulting particle coordinates.
+
+        During processing, each micrograph is analyzed independently to
+        identify local image features compatible with the expected particle
+        appearance and size. The detected coordinates are then stored as a
+        particle coordinate set that can be used directly in downstream
+        extraction and classification workflows.
+
+        Particle Diameter and Biological Interpretation
+
+        One of the most important parameters is the expected particle
+        diameter. This value determines the approximate spatial scale at
+        which the protocol searches for particle-like features. Selecting
+        an appropriate diameter is essential for biologically meaningful
+        results.
+
+        If the diameter is underestimated, large particles may be detected
+        only partially or fragmented into multiple coordinates. If it is
+        overestimated, neighboring particles or background contaminants may
+        be merged incorrectly. In practice, the diameter should reflect the
+        approximate maximum width of the molecular projection visible in
+        the micrographs.
+
+        For elongated or flexible complexes, users should generally choose
+        a diameter corresponding to the dominant compact region rather than
+        the longest dimension of the particle.
+
+        Threshold Selection and Detection Sensitivity
+
+        The detection threshold controls how strongly image features must
+        stand out from the local background in order to be considered valid
+        particles. Lower thresholds increase sensitivity and usually detect
+        more candidate particles, but they also raise the number of false
+        positives arising from contamination, carbon edges, or noise.
+
+        Higher thresholds produce cleaner coordinate sets with fewer
+        spurious detections, although genuine low-contrast particles may
+        be missed. In biological practice, users often begin with moderate
+        threshold values and then inspect the coordinates visually before
+        deciding whether additional refinement is needed.
+
+        The optimal threshold depends strongly on ice thickness, particle
+        contrast, detector quality, and specimen heterogeneity.
+
+        Image Contrast and Inversion
+
+        The protocol optionally supports image inversion before particle
+        detection. This option is biologically important because some
+        datasets contain particles that appear darker than the background,
+        while others display the opposite contrast relationship depending
+        on imaging conditions and preprocessing conventions.
+
+        Correctly matching the expected particle contrast improves picking
+        reliability considerably. Users should visually inspect their
+        micrographs before processing and determine whether particles
+        appear brighter or darker relative to the surrounding vitreous ice.
+
+        Additional Detection Parameters
+
+        Advanced users may provide additional detection settings to adapt
+        the protocol to unusually challenging datasets. These options can
+        influence the number of detection scales explored, the allowable
+        particle area, or the maximum number of candidate peaks identified
+        in each micrograph.
+
+        Such advanced adjustments are most useful in datasets with strong
+        contamination, broad particle size variability, crowded fields, or
+        highly heterogeneous particle distributions. For routine biological
+        processing, however, the default parameters are often sufficient to
+        obtain useful initial coordinate sets.
+
+        Outputs and Their Interpretation
+
+        After execution, the protocol generates a set of particle
+        coordinates associated with the input micrographs. These
+        coordinates define the estimated particle centers and are intended
+        for downstream particle extraction.
+
+        The resulting coordinate set should always be inspected visually.
+        Automated particle picking methods can introduce both false
+        positives and false negatives, especially in low-contrast or
+        contaminated datasets. Biological interpretation should therefore
+        rely on subsequent validation through 2D classification and
+        refinement rather than on the picking results alone.
+
+        Practical Recommendations
+
+        In routine cryo-EM workflows, it is generally advisable to begin
+        with conservative threshold values and a realistic particle
+        diameter estimate. Visual inspection of the resulting coordinates
+        on several representative micrographs provides the fastest way to
+        determine whether the parameters are biologically appropriate.
+
+        If too many contaminants are selected, increasing the threshold
+        usually improves specificity. If genuine particles are missed,
+        lowering the threshold moderately may improve recovery. Datasets
+        containing strong ice gradients or carbon support regions often
+        benefit from preprocessing or manual exclusion of problematic
+        micrographs before automated picking.
+
+        DogPicker is particularly effective as a fast initial picking tool
+        for exploratory workflows and for generating particle sets that
+        can later be cleaned through classification methods.
+
+        Final Perspective
+
+        Automated particle picking is a critical bridge between raw image
+        acquisition and high-resolution structural analysis. Reliable
+        coordinate detection allows cryo-EM users to process large
+        datasets efficiently while reducing manual intervention. Careful
+        selection of particle diameter, threshold sensitivity, and image
+        contrast settings is essential for obtaining biologically useful
+        particle populations suitable for downstream reconstruction and
+        interpretation.
     """
     _label = 'dogpicker'
 
